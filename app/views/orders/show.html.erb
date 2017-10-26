@@ -1,0 +1,45 @@
+<header class="hero is-info">
+    <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">Orders</h1>
+	      <h4 class="subtitle">Showing details about <strong><%= @order.title %></strong> order </h4>
+	    </div>
+  	</div>
+</header>
+<section class="section">
+	<div class="container">
+		<% if notice %>
+	      <article class="message is-primary">
+	        <div id="notice" class="message-body">
+	          <%= notice %>
+	        </div>
+	      </article>
+	    <% end %>
+
+		<p>
+		  <strong>Title:</strong>
+		  <%= @order.title %>
+		</p>
+
+		<p>
+		  <strong>Description:</strong>
+		  <%= @order.description %>
+		</p>
+
+		<p>
+		  <strong>Deadline:</strong>
+		  <%= format(@order.deadline) %>
+		</p>
+
+		<p>
+		  <strong>Status:</strong>
+		  <%= @order.status %>
+		</p>
+
+		<br>
+		<%= link_to 'Edit', edit_order_path(@order), class: "button is-outlined is-info" %>
+		<%= link_to 'Back', orders_path, class: "button is-outlined" %>
+	
+	</div>
+</section>
+

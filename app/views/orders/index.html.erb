@@ -1,0 +1,58 @@
+
+
+<header class="hero is-info">
+  <div class="container">
+    <div class="hero-body">
+      <h1 class="title">Orders</h1>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+
+    <% if notice %>
+      <article class="message is-primary">
+        <div id="notice" class="message-body">
+          <%= notice %>
+        </div>
+      </article>
+    <% end %>
+
+    <%= link_to 'New Order', new_order_path, class: "button is-info" %>
+    <br>
+    <br>
+
+    <div class="columns is-multiline is-centered">
+    <% @orders.each do |order| %>
+      <div class="column is-3-fullhd is-4-desktop is-5-tablet is-12-mobile">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title"><%= order.title %></p>
+              <a href="#" class="card-header-icon" aria-label="more options">
+                <span class="tag <%= correspondent_class(order.deadline)%>">
+                  <%= days_period(order.deadline) %> Ramining days
+                </span>
+              </a>
+              <a href="#" class="card-header-icon" aria-label="more options">
+                <span class="tag is-primary">
+                  <%= order.status %>
+                </span>
+              </a>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <%= order.description %>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <%= link_to 'Show', order, class: "card-footer-item" %></td>
+            <%= link_to 'Edit', edit_order_path(order), class: "card-footer-item" %>
+            <%= link_to 'Finalize', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "card-footer-item" %>
+          </footer>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</section>

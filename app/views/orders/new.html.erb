@@ -1,0 +1,21 @@
+<header class="hero is-info">
+    <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">New Order</h1>
+	      <h4 class="subtitle">Fill the fields below to create a new order!</h4>
+	    </div>
+  	</div>
+</header>
+<section class="section">
+	<div class="container">
+		<div class="columns is-centered">
+			<div class="column is-6">
+				<%= render 'form', order: @order %>
+
+				<br>
+				<%= link_to 'Back', orders_path, class: "button is-outlined" %>
+			</div>
+		</div>
+	</div>
+</section>
+

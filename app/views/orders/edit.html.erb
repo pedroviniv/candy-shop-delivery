@@ -1,0 +1,24 @@
+<header class="hero is-info">
+    <div class="hero-body">
+	    <div class="container">
+	      <h1 class="title">Editing Orders</h1>
+	      <h4 class="subtitle">Modify the fields below to change the <strong><%= @order.title %></strong> order data!</h4>
+	    </div>
+  	</div>
+</header>
+<section class="section">
+	<div class="container">
+	<div class="columns is-centered">
+		<div class="column is-6-desktop is-8-tablet is-12-mobile">
+			<%= render 'form', order: @order %>
+
+			<br>
+			<%= link_to 'Show', @order, class: "button is-info" %>
+			<%= link_to 'Back', orders_path, class: "button is-outlined" %>
+		</div>
+	</div>
+		
+	</div>
+</section>
+
+
