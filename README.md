@@ -14,8 +14,8 @@ In order to download this project, chose a folder which you want to download thi
 
 ### Configuration and Deployment
 
-Before deploying this app, you should take a look at config/database.yml file. Once I'm using PostgreSQL, you should create a new database in the PostgreSQL with the name "candy-shop-delivery" and after that, configure some attributes in the file mentioned before. The attributes you must configure is: username, password and host. Put these information accordingly to the PostgreSQL installed in your host.
+Before deploying this app, you should take a look at [config/database.yml file](https://github.com/pedroviniv/candy-shop-delivery/blob/master/config/database.yml) file. Once I'm using PostgreSQL, you should create a new database in the PostgreSQL named "candy-shop-delivery" and set some attributes in the file mentioned before. The attributes you must configure is: username, password, host and port. Put these information accordingly to the PostgreSQL installed in your host.
 
-Once the configuration is done, you should open your terminal and run the command "rails s" to deploy the webapp and expose it through the port 3000.
+Once the configuration is done, you should open your terminal and run the command `rails s` to deploy the webapp and expose it through the port 3000.
 
-If the steps described above went fine, you'll be able to access the application through the address http://localhost:3000/orders.
+If the steps described above went fine, you'll be able to access the application through the address [http://localhost:3000/orders](http://localhost:3000/orders).
