@@ -10,6 +10,15 @@
 	<div class="container">
 		<div class="columns is-centered">
 			<div class="column is-6">
+
+				<% if notice %>
+			      <article class="message is-info">
+			        <div id="notice" class="message-body">
+			          <%= notice %>
+			        </div>
+			      </article>
+			    <% end %>
+
 				<%= render 'form', order: @order %>
 
 				<br>

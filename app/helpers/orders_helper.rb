@@ -17,6 +17,14 @@ module OrdersHelper
 	end
 
 	def format(order_deadline)
-		order_deadline.strftime("%d/%m/%Y %H:%M:%S")
+		order_deadline.strftime("%d/%m/%Y %H:%M")
 	end
+
+	def convert_str_date_time(str_date_time)
+      	begin
+        	DateTime.strptime(str_date_time, "%d/%m/%Y %H:%M")
+      	rescue ArgumentError
+        	raise InvalidDateFormat.new("The format of #{str_date_time} date is invalid. Please follow the pattern 'dd/MM/yyyy hh:mm.'")
+      	end
+    end
 end

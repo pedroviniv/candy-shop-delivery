@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :convert_str_date_time, only: [:create, :update]
   before_action :convert_date_time_str, only: [:edit]
 
   helper OrdersHelper
@@ -28,29 +27,45 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params.merge(:status => 'created'))
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+   
+    begin
+      params = order_params
+      params[:deadline] = helpers.convert_str_date_time(params[:deadline])
+      @order = Order.new(order_params.merge(:status => 'created'))
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to @order, notice: 'Order was successfully created.' }
+          format.json { render :show, status: :created, location: @order }
+        else
+          format.html { render :new }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    rescue InvalidDateFormat => e
+      respond_to do |format|
+        format.html {redirect_to request.referrer, notice: e.msg}
+      end
+    end 
   end
 
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    respond_to do |format|
-      if @order.update(update_order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+    params = order_params
+    begin
+      params[:deadline] = helpers.convert_str_date_time(params[:deadline])
+      respond_to do |format|
+        if @order.update(order_params)
+          format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+          format.json { render :show, status: :ok, location: @order }
+        else
+          format.html { render :edit }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
+      end
+    rescue InvalidDateFormat => e
+      respond_to do |format|
+        format.html {redirect_to request.referrer, notice: e.msg}
       end
     end
   end
@@ -76,18 +91,8 @@ class OrdersController < ApplicationController
       order_params = params.require(:order).permit(:title, :description, :deadline)
     end
 
-    def convert_str_date_time
-      order_params = params.require(:order).permit(:title, :description, :deadline)
-      date_time = DateTime.strptime(order_params[:deadline], "%d/%m/%Y %H:%M")
-      order_params[:deadline] = date_time
-    end
-
     def convert_date_time_str
       set_order
       @order.deadline = helpers.format(@order.deadline)
-    end
-
-    def update_order_params
-      params.require(:order).permit(:title, :description, :deadline, :status)
     end
 end
